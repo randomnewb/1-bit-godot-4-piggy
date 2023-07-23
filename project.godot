@@ -50,6 +50,7 @@ move_down={
 
 2d_physics/layer_1="piggy"
 2d_physics/layer_2="apples"
+2d_physics/layer_3="axe"
 
 [rendering]
 

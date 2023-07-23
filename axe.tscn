@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4tbqx7wf1js3"]
+
+[ext_resource type="Script" path="res://axe.gd" id="1_8bp6u"]
+[ext_resource type="Texture2D" uid="uid://b07o7jhnokwxu" path="res://axe.png" id="1_op5g8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lk26"]
+size = Vector2(8, 9)
+
+[node name="Axe" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_8bp6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_op5g8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -2.5)
+shape = SubResource("RectangleShape2D_4lk26")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

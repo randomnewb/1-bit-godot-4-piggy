@@ -2,12 +2,17 @@ extends Node2D
 
 const APPLE_SCENE = preload("res://apple.tscn");
 
+@onready var piggy = $Piggy
+
 var height = ProjectSettings.get_setting("display/window/size/viewport_height");
 var width = ProjectSettings.get_setting("display/window/size/viewport_width");
 
 func get_spawn_position():
-	var spawnY = randi_range(0, height);
-	var spawnX = randi_range(0, width);
+	var pigX = piggy.position.x
+	var pigY = piggy.position.y
+	print("X ", pigX, "Y: ", pigY);
+	var spawnY = randi_range(15, height - 15);
+	var spawnX = randi_range(15, width - 15);
 	return [spawnY, spawnX];
 
 func _on_piggy_apple_eaten():

@@ -62,6 +62,7 @@ radius = 7.0
 height = 22.0
 
 [node name="Piggy" type="Area2D"]
+z_index = 1
 collision_mask = 2
 script = ExtResource("1_ls8jc")
 
