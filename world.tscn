@@ -13,26 +13,4 @@ position = Vector2(203, 87)
 [node name="Apple" parent="." instance=ExtResource("2_gndy6")]
 position = Vector2(178, 135)
 
-[node name="Apple2" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(133, 41)
-
-[node name="Apple3" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(81, 72)
-
-[node name="Apple4" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(121, 122)
-
-[node name="Apple5" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(254, 59)
-
-[node name="Apple6" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(270, 145)
-
-[node name="Apple7" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(140, 91)
-
-[node name="Apple8" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(56, 38)
-
-[node name="Apple9" parent="." instance=ExtResource("2_gndy6")]
-position = Vector2(65, 137)
+[connection signal="apple_eaten" from="Piggy" to="." method="_on_piggy_apple_eaten"]
