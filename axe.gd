@@ -15,12 +15,14 @@ func _process(delta):
 		scale.x = -1;
 
 func _on_area_entered(area):
+	var pigSize = area.scale;
 	area.queue_free();
 	queue_free();
 	var world = get_tree().current_scene;
 	
 	var porkchop = PORKCHOP_SCENE.instantiate();
 	world.add_child.call_deferred(porkchop);
+	porkchop.scale = pigSize;
 	porkchop.position = global_position;
 
 	var explosion = EXPLOSION_EFFECT_SCENE.instantiate();
