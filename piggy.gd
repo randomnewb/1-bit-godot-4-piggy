@@ -12,6 +12,12 @@ signal apple_eaten;
 
 func _process(delta):
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	
+	if Input.is_action_pressed("move_by_mouse"):
+		var target = get_local_mouse_position();
+		target /= position;
+		input_vector = target.normalized();
+			
 	if input_vector == Vector2.ZERO:
 		animation_player.play("idle");
 	else:
