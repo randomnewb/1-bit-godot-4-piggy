@@ -22,8 +22,6 @@ func _process(delta):
 		var target = last_clicked_position;
 		target /= position;
 		input_vector = target.normalized();
-		#if round(position) != round(get_global_mouse_position()):
-			#input_vector = target.normalized();
 			
 	if input_vector == Vector2.ZERO:
 		animation_player.play("idle");
@@ -39,4 +37,6 @@ func _on_area_entered(area):
 	area.queue_free();
 	apple_eaten.emit();
 	scale *= 1.05;
+	var world = get_tree().current_scene;
+	world.size = scale.x
 	print("pig size: ", scale.x);
