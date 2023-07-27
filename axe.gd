@@ -6,6 +6,8 @@ extends Area2D
 var PORKCHOP_SCENE = preload("res://porkchop.tscn");
 var EXPLOSION_EFFECT_SCENE = preload("res://explosion_effect.tscn");
 
+signal gameover;
+
 func _process(delta):
 	position = position.move_toward(piggy.position, speed * delta);
 	
@@ -28,3 +30,5 @@ func _on_area_entered(area):
 	var explosion = EXPLOSION_EFFECT_SCENE.instantiate();
 	world.add_child.call_deferred(explosion);
 	explosion.global_position = global_position;
+	
+	gameover.emit();

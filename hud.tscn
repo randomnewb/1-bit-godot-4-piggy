@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxalpgny28qvb"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_2kpvc"]
+[ext_resource type="LabelSettings" uid="uid://b12stg2keoq4u" path="res://LabelSettings.tres" id="1_3oejy"]
+[ext_resource type="FontFile" uid="uid://bkx7kxdmwwe8t" path="res://pixel_rpg.ttf" id="1_dam10"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_2kpvc")
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScoreLabel" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 10.0
+offset_right = 320.0
+offset_bottom = 36.0
+text = "0"
+label_settings = ExtResource("1_3oejy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="Container"]
+visible = false
+layout_mode = 2
+offset_top = 60.0
+offset_right = 320.0
+offset_bottom = 110.0
+text = "Game Over"
+label_settings = ExtResource("1_3oejy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="Container"]
+layout_mode = 2
+offset_left = 80.0
+offset_top = 120.0
+offset_right = 240.0
+offset_bottom = 150.0
+theme_override_fonts/font = ExtResource("1_dam10")
+theme_override_font_sizes/font_size = 16
+text = "Restart"
+
+[node name="MessageTimer" type="Timer" parent="Container"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Container/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="Container/MessageTimer" to="." method="_on_message_timer_timeout"]
