@@ -39,4 +39,3 @@ func _on_area_entered(area):
 	scale *= 1.05;
 	var world = get_tree().current_scene;
 	world.size = scale.x
-	print("pig size: ", scale.x);

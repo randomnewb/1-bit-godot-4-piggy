@@ -8,7 +8,8 @@ const AXE_SCENE = preload("res://axe.tscn")
 @onready var start_button = $HUD/Container/StartButton;
 @onready var time_label = $HUD/Container/TimeLabel;
 @onready var size_label = $HUD/Container/SizeLabel;
-@onready var highscore_message = $HUD/Container/HighScoreMessage;
+@onready var highscore_time = $HUD/Container/HighScoreTime;
+@onready var highscore_size = $HUD/Container/HighScoreSize
 @onready var elapsed_timer = $HUD/Container/ElapsedTimer;
 
 var height = ProjectSettings.get_setting("display/window/size/viewport_height");
@@ -69,9 +70,30 @@ func _on_piggy_apple_eaten():
 	apple.position.x = spawn_position[1];
 	
 func _on_gameover():
-	gameover_message.show();
-	highscore_message.show();
+	var saved_information = SaveAndLoad.load_highscore()
+	if saved_information != null:
+		if (time <= saved_information[0] and size >= saved_information[1]) or (time >= saved_information[0] and size >= saved_information[1]):
+			SaveAndLoad.save_highscore(time, size)
+			highscore_time.text = "Previous Best Time Alive: " + str(time);
+			highscore_size.text = "Previous Best Size: " + str(snapped(size,0.01));
+	elif saved_information == null:
+		SaveAndLoad.save_highscore(time, size);
+		highscore_time.text = "Previous Best Time Alive: " + str(time);
+		highscore_size.text = "Previous Best Size: " + str(snapped(size,0.01));
+	else:
+		SaveAndLoad.save_highscore(time, size);
+		highscore_time.text = "Previous Best Time Alive: " + str(saved_information[0]);
+		highscore_size.text = "Previous Best Size: " + str(snapped(saved_information[1],0.01));
+	
 	elapsed_timer.stop();
+	await get_tree().create_timer(1.0).timeout;
+
+	#highscore_time.text = "Previous Best Time Alive: " + str(saved_information[0]);
+	#highscore_size.text = "Previous Best Size: " + str(snapped(saved_information[1],0.01));
+	
+	gameover_message.show();
+	highscore_time.show();
+	highscore_size.show();
 	start_button.show()
 	
 	for node in get_tree().get_nodes_in_group("Entities"):
