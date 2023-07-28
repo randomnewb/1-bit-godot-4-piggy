@@ -70,27 +70,24 @@ func _on_piggy_apple_eaten():
 	apple.position.x = spawn_position[1];
 	
 func _on_gameover():
-	var saved_information = SaveAndLoad.load_highscore()
-	if saved_information != null:
-		if (time <= saved_information[0] and size >= saved_information[1]) or (time >= saved_information[0] and size >= saved_information[1]):
-			SaveAndLoad.save_highscore(time, size)
+	var data = SaveAndLoad.load_highscore()
+
+	if data != null:
+		if (time <= data.best_time and size >= data.best_size) or (time >= data.best_time and size >= data.best_size):
+			SaveAndLoad.save_highscore({"best_size": size, "best_time": time})
 			highscore_time.text = "Previous Best Time Alive: " + str(time);
 			highscore_size.text = "Previous Best Size: " + str(snapped(size,0.01));
-	elif saved_information == null:
-		SaveAndLoad.save_highscore(time, size);
+		else:
+			highscore_time.text = "Previous Best Time Alive: " + str(data.best_time);
+			highscore_size.text = "Previous Best Size: " + str(snapped(data.best_size,0.01));
+	if data == null:
+		SaveAndLoad.save_highscore({"best_size": size, "best_time": time});
 		highscore_time.text = "Previous Best Time Alive: " + str(time);
 		highscore_size.text = "Previous Best Size: " + str(snapped(size,0.01));
-	else:
-		SaveAndLoad.save_highscore(time, size);
-		highscore_time.text = "Previous Best Time Alive: " + str(saved_information[0]);
-		highscore_size.text = "Previous Best Size: " + str(snapped(saved_information[1],0.01));
 	
 	elapsed_timer.stop();
 	await get_tree().create_timer(1.0).timeout;
 
-	#highscore_time.text = "Previous Best Time Alive: " + str(saved_information[0]);
-	#highscore_size.text = "Previous Best Size: " + str(snapped(saved_information[1],0.01));
-	
 	gameover_message.show();
 	highscore_time.show();
 	highscore_size.show();
